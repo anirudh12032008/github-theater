@@ -56,14 +56,18 @@ def fetchcommit(id, repo):
         "[bold cyan]ts [bold yellow]lazy mf[/bold yellow] [yellow]{author}[/yellow] made this [bold green]Legendary Move[/bold green] on [green]{date}[/green] with this weierd code [red]{sha}[/red][/bold cyan]",
         "[bold cyan]{author} has just [bold magenta]vibe coded[/bold magenta] a lot on [green]{date}[/green] and put [red]{sha}[/red] label on it, hahah[/bold cyan]"
     ]
-
-
+    color = ["red", "green", "blue", "yellow", "magenta", "cyan"]
+    between = ["[bold cyan] >> curtains close, next act incoming <<[/bold cyan]", 
+                 "[bold green] >> lets see what happens next << [bold green]",
+                 "[bold red] >> wtf did this person did!!!!!! << [bold red]",
+                 "[bold yellow] >> omg omg omg omg omg whattttt!!!! << [bold yellow]",
+                                "[bold magenta] >> this thing fucked up the whole codebase :( << [bold magenta]"               ]
     for j, i in enumerate(res.json()[::-1][:10]):
         msg = i['commit']['message'].split('\n')[0]
         sha = i['sha'][:7]
         author = i['commit']['author']['name']
         date = i['commit']['author']['date'][:10]
-        # I just got to know that random module has this thing too 
+        # I just got to know that random module has this thing too
         text = random.choice(temp).format(
             author=author,
             date= date,
@@ -71,11 +75,14 @@ def fetchcommit(id, repo):
             msg = msg
         )
         scene = Panel.fit(
-            text,
-            title=f"Scene {j+1}",
-            border_style="bright_blue"
+            f"\n\n{text}\n\n",
+            title=f"Scene --- {j+1}",
+            border_style=random.choice(color),
+            padding=(0, 2)
         )
+        
         console.print(scene)
+        console.print(random.choice(between))
 
 
 def theater():
