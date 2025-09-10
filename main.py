@@ -1,5 +1,6 @@
 import os
 from rich.prompt import Prompt
+import random
 from rich.text import Text
 from rich.panel import Panel
 import requests
@@ -48,17 +49,29 @@ def fetchcommit(id, repo):
     #     console.print(line)
     #     # console.print(f"Repo: {repo}-----Author: {i['commit']['author']['name']}-----Date: {i['commit']['author']['date']}-----Message: {msg}")
     #     # console.print("")
-    console.log(f"[bold yellow] YOO Once upon a time, in the ultra pro max repo [green]{repo}[/green]...[/bold yellow]")
-    temp = ["[cyan]The almighty lord of codes {author} wrote this legendary piece of shit! on {date} and [/cyan]", "[cyan] "]
+    console.log(f"[green] YOO Once upon a time, in the ultra pro max repo [bold red]{repo}[/bold red]...[/green]")
+    temp = [
+        "[bold cyan]the almiighty lord of codes [yellow]{author}[/yellow] wrote this [bold magenta]legendary[/bold magenta] piece of code on [green]{date}[/green] and in the least golden color it was called [red]{sha}[/red][/bold cyan]",
+        "[bold cyan]the [red]dumbesttt[/red] of all time [yellow]{author}[/yellow] just dropped this [bold red]absolutely garabagee[/bold red] code on [green]{date}[/green] and it was marked as [magenta]{sha}[/magenta][/bold cyan]",
+        "[bold cyan]ts [bold yellow]lazy mf[/bold yellow] [yellow]{author}[/yellow] made this [bold green]Legendary Move[/bold green] on [green]{date}[/green] with this weierd code [red]{sha}[/red][/bold cyan]",
+        "[bold cyan]{author} has just [bold magenta]vibe coded[/bold magenta] a lot on [green]{date}[/green] and put [red]{sha}[/red] label on it, hahah[/bold cyan]"
+    ]
+
+
     for j, i in enumerate(res.json()[::-1][:10]):
         msg = i['commit']['message'].split('\n')[0]
         sha = i['sha'][:7]
         author = i['commit']['author']['name']
         date = i['commit']['author']['date'][:10]
+        # I just got to know that random module has this thing too 
+        text = random.choice(temp).format(
+            author=author,
+            date= date,
+            sha = sha,
+            msg = msg
+        )
         scene = Panel.fit(
-            f"[cyan]{author}[/cyan] took the stage on [blue]{date}[/blue]"
-            f"  Whispering: [green]{msg}[/]\n"
-            f"(The world remembered it as [magenta]{sha}[/magenta])",
+            text,
             title=f"Scene {j+1}",
             border_style="bright_blue"
         )
@@ -71,9 +84,10 @@ def theater():
 if __name__ == "__main__":
     username = "anirudh12032008"
     # fetchrepodts(username)
-    repos= fetchreponame(username)
-    userrepo = Prompt.ask("[bold blue]name of repo : [/bold blue]")
-    if userrepo in repos:
-        fetchcommit(username, userrepo)
-    else:
-        console.print(f"[red] BROOO don't you know the repo name :sob sob sob:, you are idiot, hahaha [/red]")
+    # repos= fetchreponame(username)
+    # userrepo = Prompt.ask("[bold blue]name of repo : [/bold blue]")
+    # if userrepo in repos:
+    #     fetchcommit(username, userrepo)
+    # else:
+    #     console.print(f"[red] BROOO don't you know the repo name :sob sob sob:, you are idiot, hahaha [/red]")
+    fetchcommit(username,"armed")
