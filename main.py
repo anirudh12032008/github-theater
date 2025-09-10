@@ -24,7 +24,6 @@ def fetchreponame(id):
     url = f"https://api.github.com/users/{id}/repos"
     res = requests.get(url)
     if res.status_code == 200:
-        # print the repo names with rich using panel
         for i in res.json():
             panel = Panel.fit(f"[bold green]{i['name']}[/bold green]")
             console.print(panel)
@@ -38,18 +37,33 @@ def fetchcommit(id, repo):
         console.print(f"Error  {repo}: {res.status_code}")
         return
     console.print(Panel.fit(f"[bold green]Commit History --- {id}/{repo}[/bold green]"))
-    for j, i in enumerate(res.json()[:10]):
-        # for the message I only need the text until I get /n after that I get the descriptions
+    # for j, i in enumerate(res.json()[:10]):
+    #     # for the message I only need the text until I get /n after that I get the descriptions
+    #     msg = i['commit']['message'].split('\n')[0]
+    #     sha = i['sha'][:7]
+    #     author = i['commit']['author']['name']
+    #     date = i['commit']['author']['date'][:10]
+    #     dash = "└─" if j == len(res.json()[:10]) - 1 else "├─"
+    #     line = f"{dash} [{date}] - [cyan]{author}[/] -- [green]{msg}[/] ([magenta]{sha}[/])"
+    #     console.print(line)
+    #     # console.print(f"Repo: {repo}-----Author: {i['commit']['author']['name']}-----Date: {i['commit']['author']['date']}-----Message: {msg}")
+    #     # console.print("")
+    console.log(f"[bold yellow] YOO Once upon a time, in the ultra pro max repo [green]{repo}[/green]...[/bold yellow]")
+    temp = ["[cyan]The almighty lord of codes {author} wrote this legendary piece of shit! on {date} and [/cyan]", "[cyan] "]
+    for j, i in enumerate(res.json()[::-1][:10]):
         msg = i['commit']['message'].split('\n')[0]
         sha = i['sha'][:7]
         author = i['commit']['author']['name']
         date = i['commit']['author']['date'][:10]
-        dash = "└─" if j == len(res.json()[:10]) - 1 else "├─"
-        line = f"{dash} [{date}] - [cyan]{author}[/] -- [green]{msg}[/] ([magenta]{sha}[/])"
-        console.print(line)
-        # console.print(f"Repo: {repo}-----Author: {i['commit']['author']['name']}-----Date: {i['commit']['author']['date']}-----Message: {msg}")
-        # console.print("")
-        # console.print("")
+        scene = Panel.fit(
+            f"[cyan]{author}[/cyan] took the stage on [blue]{date}[/blue]"
+            f"  Whispering: [green]{msg}[/]\n"
+            f"(The world remembered it as [magenta]{sha}[/magenta])",
+            title=f"Scene {j+1}",
+            border_style="bright_blue"
+        )
+        console.print(scene)
+
 
 def theater():
     pass
