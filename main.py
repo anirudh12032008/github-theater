@@ -1,3 +1,4 @@
+import time
 import os
 from rich.prompt import Prompt
 import random
@@ -50,6 +51,7 @@ def fetchcommit(id, repo):
     #     # console.print(f"Repo: {repo}-----Author: {i['commit']['author']['name']}-----Date: {i['commit']['author']['date']}-----Message: {msg}")
     #     # console.print("")
     console.log(f"[green] YOO Once upon a time, in the ultra pro max repo [bold red]{repo}[/bold red]...[/green]")
+    
     temp = [
         "[bold cyan]the almiighty lord of codes [yellow]{author}[/yellow] wrote this [bold magenta]legendary[/bold magenta] piece of code on [green]{date}[/green] and in the least golden color it was called [red]{sha}[/red][/bold cyan]",
         "[bold cyan]the [red]dumbesttt[/red] of all time [yellow]{author}[/yellow] just dropped this [bold red]absolutely garabagee[/bold red] code on [green]{date}[/green] and it was marked as [magenta]{sha}[/magenta][/bold cyan]",
@@ -61,7 +63,8 @@ def fetchcommit(id, repo):
                  "[bold green] >> lets see what happens next << [bold green]",
                  "[bold red] >> wtf did this person did!!!!!! << [bold red]",
                  "[bold yellow] >> omg omg omg omg omg whattttt!!!! << [bold yellow]",
-                                "[bold magenta] >> this thing fucked up the whole codebase :( << [bold magenta]"               ]
+                         "[bold magenta] >> this thing fucked up the whole codebase :( << [bold magenta]"]
+    
     for j, i in enumerate(res.json()[::-1][:10]):
         msg = i['commit']['message'].split('\n')[0]
         sha = i['sha'][:7]
@@ -80,13 +83,27 @@ def fetchcommit(id, repo):
             border_style=random.choice(color),
             padding=(0, 2)
         )
-        
         console.print(scene)
         console.print(random.choice(between))
+        time.sleep(1)
+    
+from rich.align import Align
 
+def theater(username, repo):
+    console.print(Align.center("[bold yellow] WELCOME TO GITHUB THEATER!!!!! [/bold yellow]"))
+    time.sleep(1)
 
-def theater():
-    pass
+    wish = Panel.fit(
+        f"[bold magenta] SHOW is starting sooooonnn..............[/bold magenta]"
+        f"[cyan] Starring : {username}(dumbass) in [bold red] {repo} [/bold red] [/cyan]",
+        title="UPCOMINGG SHOWWW",
+        border_style="bright_yellow"
+    )
+    console.print(wish)
+    time.sleep(2)
+    console.print(Align.center(" YOU WILL REGRET THIS, hahahaha"))
+    time.sleep(2)
+    fetchcommit(username,repo)
 
 if __name__ == "__main__":
     username = "anirudh12032008"
@@ -97,4 +114,4 @@ if __name__ == "__main__":
     #     fetchcommit(username, userrepo)
     # else:
     #     console.print(f"[red] BROOO don't you know the repo name :sob sob sob:, you are idiot, hahaha [/red]")
-    fetchcommit(username,"armed")
+    theater(username, "armed")
