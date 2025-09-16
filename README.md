@@ -1,0 +1,2 @@
+# GITHUB THEATER
+Hope you enjoyed it!! \n Owner of this Theater - Anirudh Sahu (GH: anirudh12032008, Slack: @Anirudh) \n and I created this for #terminalcraft and #summer-of-making Less then 30% AI was used in this project and the creativity you can just see already :hehe: 
