@@ -1,0 +1,12 @@
+[Unit]
+Description=ttyd Web Terminal for Github Theater
+After=network.target
+
+[Service]
+ExecStart=/home/anirudh/github-theater/ttyd -p 9000 -W bash -c "cd /home/anirudh/github-theater && source venv/bin/activate && python main.py"
+WorkingDirectory=/home/anirudh/github-theater
+Environment=PATH=/home/anirudh/github-theater/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Restart=always
+
+[Install]
+WantedBy=default.target

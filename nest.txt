@@ -1,3 +1,32 @@
-sudo apt update
-sudo apt install ttyd -y
+sudo apt update (does not work)
+sudo apt install ttyd -y (does not work)
+
+to download ttyd
 wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64
+
+to open the shitty venv
+source venv/bin/activate
+
+
+use this to open the ttyd at port9000
+ ttyd -p 9000 bash -c "cd ~/github-theater && source venv/bin/activate && python main.py"
+
+
+ add -W for writtable
+  ttyd -p 9000 -W bash -c "cd ~/github-theater && source venv/bin/activate && python main.py"
+
+setup for systemmd
+systemctl --user daemon-reload
+
+systemctl --user enable --now theater
+
+checking stuff
+journalctl --user -u theater
+
+
+okay checked again and its working on this endpoint 
+http://37.27.51.34:9000/
+
+
+to make subdomain do this
+nest caddy add theater.anirudh.hackclub.app --proxy localhost:9000
